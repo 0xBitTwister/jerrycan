@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 应用私有目录 -->
+    <files-path name="files" path="." />
+    <cache-path name="cache" path="." />
+    
+    <!-- 应用外部存储目录 -->
+    <external-files-path name="external_files" path="." />
+    <external-cache-path name="external_cache" path="." />
+    
+    <!-- 公共目录 -->
+    <external-path name="external" path="." />
+    
+    <!-- 特定共享目录 -->
+    <external-path name="documents" path="Documents/JerryCan/" />
+    <external-path name="downloads" path="Download/JerryCan/" />
+</paths> 

@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">JerryCan</string>
+    
+    <!-- 底部导航栏 -->
+    <string name="nav_chat">聊天</string>
+    <string name="nav_devices">设备</string>
+    <string name="nav_logs">日志</string>
+    <string name="nav_settings">设置</string>
+    
+    <!-- 聊天界面 -->
+    <string name="chat_placeholder">请先连接设备</string>
+    <string name="chat_connect_device">连接设备</string>
+    <string name="chat_send">发送</string>
+    <string name="chat_hint">输入消息...</string>
+    <string name="chat_hex_mode">十六进制模式</string>
+    <string name="chat_text_mode">文本模式</string>
+    <string name="chat_clear">清空聊天</string>
+    <string name="chat_disconnect">断开连接</string>
+    <string name="chat_history">聊天历史</string>
+    
+    <!-- 设备界面 -->
+    <string name="devices_title">设备</string>
+    <string name="devices_add_new">添加新设备</string>
+    <string name="devices_paired">已配对设备</string>
+    <string name="devices_search">搜索设备</string>
+    <string name="devices_refresh">刷新</string>
+    <string name="devices_searching">正在搜索...</string>
+    <string name="devices_no_devices">未找到设备</string>
+    <string name="devices_last_connected">上次连接: %1$s</string>
+    <string name="devices_signal_strength">信号强度: %1$d dBm</string>
+    <string name="devices_address">地址: %1$s</string>
+    <string name="devices_connected">已连接</string>
+    <string name="devices_disconnected">未连接</string>
+    
+    <!-- 日志界面 -->
+    <string name="logs_title">操作日志</string>
+    <string name="logs_filter">筛选</string>
+    <string name="logs_clear">清空</string>
+    <string name="logs_no_logs">暂无日志记录</string>
+    <string name="logs_filter_device">按设备筛选</string>
+    <string name="logs_filter_action">按操作筛选</string>
+    <string name="logs_filter_date">按日期筛选</string>
+    <string name="logs_action_connect">连接</string>
+    <string name="logs_action_disconnect">断开</string>
+    <string name="logs_action_send">发送数据</string>
+    <string name="logs_action_receive">接收数据</string>
+    <string name="logs_copy">复制</string>
+    <string name="logs_details">查看详情</string>
+    <string name="logs_export">导出</string>
+    <string name="logs_share">分享</string>
+    <string name="logs_filter_all">全部</string>
+    <string name="logs_filter_connection">连接</string>
+    <string name="logs_filter_data">数据</string>
+    <string name="logs_filter_scan">扫描</string>
+    
+    <!-- 设置界面 -->
+    <string name="settings_title">设置</string>
+    <string name="settings_bluetooth">蓝牙设置</string>
+    <string name="settings_bluetooth_enable">启用蓝牙</string>
+    <string name="settings_scan_duration">扫描时长</string>
+    <string name="settings_scan_filter">扫描过滤器</string>
+    <string name="settings_scan_filter_name">按名称筛选</string>
+    <string name="settings_scan_filter_address">按地址筛选</string>
+    <string name="settings_scan_filter_raw_data">按原始数据筛选</string>
+    <string name="settings_scan_filter_device_type">设备类型</string>
+    <string name="settings_scan_filter_exclude">排除厂商</string>
+    <string name="settings_scan_filter_rssi">信号强度</string>
+    <string name="settings_scan_filter_favorites">仅显示收藏</string>
+    <string name="settings_scan_filter_reset">重置</string>
+    <string name="settings_scan_filter_no_filter">无过滤条件</string>
+    <string name="settings_scan_filter_active">已启用: %1$s</string>
+    <string name="settings_default_device">默认连接设备</string>
+    <string name="settings_visibility">蓝牙可见性</string>
+    <string name="settings_communication">通信设置</string>
+    <string name="settings_default_format">默认数据格式</string>
+    <string name="settings_auto_reconnect">自动重连</string>
+    <string name="settings_notifications">消息提醒</string>
+    <string name="settings_message_limit">消息记录限制</string>
+    <string name="settings_display">显示设置</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_theme_light">浅色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_theme_system">跟随系统</string>
+    <string name="settings_font_size">字体大小</string>
+    <string name="settings_time_format">时间格式</string>
+    <string name="settings_advanced">高级设置</string>
+    <string name="settings_protocol">蓝牙协议</string>
+    <string name="settings_log_save">日志保存设置</string>
+    <string name="settings_export_format">数据导出格式</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_version">版本号</string>
+    <string name="settings_developer">开发者信息</string>
+    <string name="settings_privacy">隐私政策</string>
+    <string name="settings_terms">用户协议</string>
+    <string name="settings_check_update">检查更新</string>
+    <string name="settings_feedback">反馈问题</string>
+    
+    <!-- 通用 -->
+    <string name="error_title">错误</string>
+    <string name="error_bluetooth_not_supported">您的设备不支持蓝牙功能</string>
+    <string name="error_bluetooth_not_enabled">请先启用蓝牙</string>
+    <string name="error_location_permission">需要位置权限来扫描蓝牙设备</string>
+    <string name="error_connection_failed">连接失败</string>
+    <string name="success_connected">已连接到设备</string>
+    <string name="success_disconnected">已断开设备连接</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="loading">加载中...</string>
+</resources>

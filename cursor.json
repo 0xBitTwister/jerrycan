@@ -1,0 +1,316 @@
+{
+  "name": "JerryCan - BLE调试工具",
+  "description": "一个功能强大的开源蓝牙BLE调试工具，提供设备连接、数据通信和日志记录等功能。UI风格简洁现代，使用蓝色主题，基于Material Design设计规范。",
+  "architecture": [
+    {
+      "name": "MVVM架构",
+      "description": "使用Modern Android Development (MAD)推荐的MVVM架构模式，清晰分离UI、业务逻辑和数据层。"
+    },
+    {
+      "name": "Clean Architecture",
+      "description": "应用Clean Architecture原则，通过分层设计使代码更具可测试性和可维护性。"
+    },
+    {
+      "name": "单向数据流",
+      "description": "采用单向数据流模式，数据从ViewModel流向UI，事件从UI流向ViewModel，确保数据一致性。"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "依赖注入",
+      "description": "使用Hilt进行依赖注入，降低组件间耦合度。遵循构造函数注入优先原则。"
+    },
+    {
+      "name": "Repository模式",
+      "description": "用于数据访问层，将数据源操作抽象化，实现数据源的无缝切换。"
+    },
+    {
+      "name": "Factory模式",
+      "description": "创建复杂对象，特别是在蓝牙服务创建方面。注意保持Factory类职责单一。"
+    },
+    {
+      "name": "Observer模式",
+      "description": "通过Flow和StateFlow实现响应式编程，监听数据变化。避免过度使用观察者模式导致的复杂依赖关系。"
+    },
+    {
+      "name": "Strategy模式",
+      "description": "用于实现不同的蓝牙通信策略和数据处理算法，使代码更具灵活性和可扩展性。"
+    }
+  ],
+  "layers": [
+    {
+      "name": "表现层 (UI Layer)",
+      "description": "包含UI组件和ViewModel，负责展示数据和捕获用户输入。不应包含业务逻辑，仅负责UI状态管理和用户交互。",
+      "folders": ["ui", "viewmodel", "navigation"],
+      "dependencies": ["domain"]
+    },
+    {
+      "name": "领域层 (Domain Layer)",
+      "description": "包含业务逻辑和实体，是应用的核心层。应独立于框架和UI实现，不依赖于Android特定API。",
+      "folders": ["domain", "model"],
+      "dependencies": ["data"]
+    },
+    {
+      "name": "数据层 (Data Layer)",
+      "description": "包含数据源、仓库和数据访问对象，负责数据的获取和存储。实现领域层定义的仓库接口，处理缓存策略和数据转换。",
+      "folders": ["data", "bluetooth"],
+      "dependencies": []
+    },
+    {
+      "name": "工具层 (Utils Layer)",
+      "description": "提供各种辅助功能和工具类。应保持通用性，不包含业务逻辑。",
+      "folders": ["utils"],
+      "dependencies": []
+    }
+  ],
+  "folders": [
+    {
+      "path": "app/src/main/java/com/example/jerrycan/ui",
+      "description": "包含所有UI组件，包括屏幕、对话框和可重用组件。遵循Jetpack Compose最佳实践。",
+      "structure": [
+        {
+          "path": "components",
+          "description": "可复用的UI组件，如按钮、卡片、列表项等"
+        },
+        {
+          "path": "screens",
+          "description": "主要屏幕，如聊天、设备、日志和设置"
+        },
+        {
+          "path": "dialogs",
+          "description": "对话框组件，如确认框、输入框等"
+        },
+        {
+          "path": "theme",
+          "description": "应用主题、颜色和排版定义，确保UI一致性"
+        }
+      ]
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/viewmodel",
+      "description": "包含所有ViewModel类，负责管理UI状态和处理业务逻辑。每个ViewModel应对应特定的UI功能领域。",
+      "structure": [
+        {
+          "path": "chat",
+          "description": "聊天相关的ViewModel，处理消息发送和接收"
+        },
+        {
+          "path": "device",
+          "description": "设备相关的ViewModel，处理设备扫描、连接和管理"
+        },
+        {
+          "path": "logs",
+          "description": "日志相关的ViewModel，处理日志记录和展示"
+        },
+        {
+          "path": "settings",
+          "description": "设置相关的ViewModel，处理用户配置和首选项"
+        }
+      ]
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/bluetooth",
+      "description": "包含所有蓝牙通信相关代码，包括扫描、连接和数据传输。BLE操作应适当抽象，支持模拟和测试。",
+      "structure": [
+        {
+          "path": "scanner",
+          "description": "蓝牙设备扫描功能，处理设备发现和过滤"
+        },
+        {
+          "path": "connection",
+          "description": "蓝牙设备连接管理，处理连接建立、维护和断开"
+        },
+        {
+          "path": "gatt",
+          "description": "GATT服务和特征操作，处理服务发现和数据交换"
+        },
+        {
+          "path": "manager",
+          "description": "蓝牙功能总管理器，协调各蓝牙组件的工作"
+        }
+      ]
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/model",
+      "description": "包含所有数据模型和实体类。实体应保持简单，主要包含数据结构和基本验证。",
+      "structure": [
+        {
+          "path": "device",
+          "description": "设备相关的数据模型，如设备信息、服务和特征"
+        },
+        {
+          "path": "message",
+          "description": "消息相关的数据模型，如通信消息和命令"
+        },
+        {
+          "path": "log",
+          "description": "日志相关的数据模型，如日志项和日志级别"
+        },
+        {
+          "path": "settings",
+          "description": "设置相关的数据模型，如用户配置和首选项"
+        }
+      ]
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/navigation",
+      "description": "包含所有导航相关代码，包括路由和导航组件。使用Jetpack Navigation组件管理应用导航。"
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/utils",
+      "description": "包含各种辅助工具类和扩展函数。工具类应具有良好的测试覆盖率。",
+      "structure": [
+        {
+          "path": "bluetooth",
+          "description": "蓝牙相关的工具类，如UUID解析、数据转换等"
+        },
+        {
+          "path": "extensions",
+          "description": "Kotlin扩展函数，增强现有类的功能"
+        },
+        {
+          "path": "formatters",
+          "description": "数据格式化工具，处理各种数据的展示格式"
+        }
+      ]
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/data",
+      "description": "包含所有数据相关代码，包括仓库和数据源。实现数据持久化和远程数据获取。",
+      "structure": [
+        {
+          "path": "repository",
+          "description": "数据仓库实现，协调不同数据源并提供统一接口"
+        },
+        {
+          "path": "source",
+          "description": "数据源实现，包括本地数据库、文件存储和远程API"
+        },
+        {
+          "path": "mapper",
+          "description": "数据映射转换器，处理不同层次间的数据模型转换"
+        }
+      ]
+    },
+    {
+      "path": "app/src/main/java/com/example/jerrycan/domain",
+      "description": "包含所有业务逻辑，包括用例和领域服务。业务规则应集中在此层，与UI和数据层解耦。",
+      "structure": [
+        {
+          "path": "usecase",
+          "description": "业务用例实现，封装特定的业务流程和规则"
+        },
+        {
+          "path": "service",
+          "description": "领域服务，提供跨用例的共享功能"
+        }
+      ]
+    },
+    {
+      "path": "app/src/test",
+      "description": "包含所有单元测试代码。单元测试应覆盖核心业务逻辑和工具函数。",
+      "structure": [
+        {
+          "path": "java/com/example/jerrycan",
+          "description": "按照主代码的包结构组织测试代码"
+        }
+      ]
+    },
+    {
+      "path": "app/src/androidTest",
+      "description": "包含所有Android集成测试和UI测试。测试关键的用户流程和UI交互。",
+      "structure": [
+        {
+          "path": "java/com/example/jerrycan",
+          "description": "按照功能模块组织测试代码"
+        }
+      ]
+    }
+  ],
+  "naming": [
+    {
+      "pattern": "ViewModel$",
+      "description": "所有ViewModel类必须以'ViewModel'结尾，例如DeviceViewModel。"
+    },
+    {
+      "pattern": "Repository$",
+      "description": "所有Repository类必须以'Repository'结尾，例如DeviceRepository。"
+    },
+    {
+      "pattern": "^Use[A-Z].*Case$",
+      "description": "所有用例类必须以'UseCase'结尾，并以'Use'开头，例如UseConnectDeviceCase。"
+    },
+    {
+      "pattern": "Screen$",
+      "description": "所有屏幕组件必须以'Screen'结尾，例如DeviceListScreen。"
+    },
+    {
+      "pattern": "Component$",
+      "description": "可复用UI组件应以'Component'结尾，例如DeviceItemComponent。"
+    },
+    {
+      "pattern": "^[A-Z][a-z0-9]*([A-Z][a-z0-9]*)*$",
+      "description": "所有类名必须使用PascalCase(大驼峰)命名法。"
+    },
+    {
+      "pattern": "^[a-z][a-z0-9]*([A-Z][a-z0-9]*)*$",
+      "description": "所有方法名、变量名必须使用camelCase(小驼峰)命名法。"
+    },
+    {
+      "pattern": "^[A-Z][A-Z0-9_]*$",
+      "description": "常量应使用全大写字母和下划线，例如MAX_RETRY_COUNT。"
+    },
+    {
+      "pattern": "Test$",
+      "description": "测试类应以'Test'结尾，例如DeviceViewModelTest。"
+    }
+  ],
+  "documentation": [
+    {
+      "pattern": "class|interface|object",
+      "documentation": "每个类、接口或对象必须有KDoc文档注释，说明其用途和责任。包括类的主要功能、使用示例和注意事项。"
+    },
+    {
+      "pattern": "fun\\s+[a-zA-Z0-9_]+\\s*\\(",
+      "documentation": "所有公开方法应有KDoc文档注释，说明其功能、参数和返回值。包括方法的目的、参数要求和可能的异常情况。"
+    },
+    {
+      "pattern": "@Composable",
+      "documentation": "所有Composable函数应有注释说明其用途、参数和状态管理方式。"
+    }
+  ],
+  "customs": [
+    {
+      "name": "多语言注释支持",
+      "description": "项目支持中文和英文注释。对于开源贡献者，可以使用英文编写注释；对于中国开发者，可以使用中文编写注释。两种语言的注释都受欢迎。"
+    },
+    {
+      "name": "错误处理",
+      "description": "所有可能产生异常的操作必须有适当的错误处理逻辑，并向用户提供友好的错误提示。使用Result类型或自定义错误类型传递错误信息。"
+    },
+    {
+      "name": "状态管理",
+      "description": "使用StateFlow/SharedFlow管理UI状态，避免状态冲突。状态类应使用密封类或数据类，清晰表达所有可能的状态。"
+    },
+    {
+      "name": "代码组织",
+      "description": "相关功能的代码应组织在一起，遵循单一责任原则。文件大小应适中，避免超过500行。"
+    },
+    {
+      "name": "权限处理",
+      "description": "蓝牙相关权限请求应集中管理，使用最新的Android权限请求API。权限请求失败应有友好的引导和解释。"
+    },
+    {
+      "name": "测试覆盖",
+      "description": "核心业务逻辑应有单元测试覆盖，UI组件应有UI测试覆盖。测试应关注功能正确性，而非实现细节。"
+    },
+    {
+      "name": "性能优化",
+      "description": "避免在主线程进行耗时操作，特别是蓝牙操作应在适当的协程调度器中执行。UI组件应避免不必要的重组。"
+    },
+    {
+      "name": "可访问性",
+      "description": "UI组件应支持可访问性功能，包括合适的内容描述和焦点导航。测试应验证关键功能的可访问性支持。"
+    }
+  ]
+} 
