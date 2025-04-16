@@ -92,6 +92,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.platform.LocalContext
 import com.example.jerrycan.utils.FileUtils
 import java.io.File
+import com.example.jerrycan.BuildConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -108,6 +109,7 @@ fun SettingsScreen(
     var showScanDurationDialog by remember { mutableStateOf(false) }
     var showAboutDialog by remember { mutableStateOf(false) }
     var showScanFilterDialog by remember { mutableStateOf(false) }
+    var showGitInfoDialog by remember { mutableStateOf(false) }
     
     // 设置状态
     var isAutoReconnect by remember { mutableStateOf(false) }
@@ -305,6 +307,13 @@ fun SettingsScreen(
                 onClick = { showAboutDialog = true }
             )
             
+            // Git信息
+            ClickableSettingItem(
+                title = stringResource(R.string.settings_git_info),
+                subtitle = "${BuildConfig.GIT_COMMIT_HASH} - ${BuildConfig.GIT_BRANCH}",
+                onClick = { showGitInfoDialog = true }
+            )
+            
             // 开发者信息
             ClickableSettingItem(
                 title = stringResource(R.string.settings_developer),
@@ -361,6 +370,30 @@ fun SettingsScreen(
         if (showAboutDialog) {
             AboutDialog(
                 onDismiss = { showAboutDialog = false }
+            )
+        }
+        
+        // Git信息对话框
+        if (showGitInfoDialog) {
+            AlertDialog(
+                onDismissRequest = { showGitInfoDialog = false },
+                title = { Text(stringResource(R.string.settings_git_info_title)) },
+                text = {
+                    Column {
+                        Text("${stringResource(R.string.settings_git_branch)}: ${BuildConfig.GIT_BRANCH}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("${stringResource(R.string.settings_git_commit_hash)}: ${BuildConfig.GIT_COMMIT_HASH}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("${stringResource(R.string.settings_git_commit_date)}: ${BuildConfig.GIT_COMMIT_DATE}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("${stringResource(R.string.settings_git_commit_message)}: ${BuildConfig.GIT_COMMIT_MESSAGE}")
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = { showGitInfoDialog = false }) {
+                        Text(stringResource(R.string.confirm))
+                    }
+                }
             )
         }
     }

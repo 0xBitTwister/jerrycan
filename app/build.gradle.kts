@@ -6,6 +6,41 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
 }
 
+// 添加获取Git commit信息的函数
+fun getGitCommitInfo(): Map<String, String> {
+    val result = HashMap<String, String>()
+    
+    try {
+        // 获取最新commit的SHA值
+        val hashProcess = ProcessBuilder("git", "rev-parse", "--short", "HEAD").start()
+        val gitHash = hashProcess.inputStream.bufferedReader().use { it.readText() }.trim()
+        result["commitHash"] = gitHash
+        
+        // 获取commit时间
+        val dateProcess = ProcessBuilder("git", "log", "-1", "--format=%ci").start()
+        val gitDate = dateProcess.inputStream.bufferedReader().use { it.readText() }.trim()
+        result["commitDate"] = gitDate
+        
+        // 获取commit信息
+        val msgProcess = ProcessBuilder("git", "log", "-1", "--format=%s").start()
+        val gitMsg = msgProcess.inputStream.bufferedReader().use { it.readText() }.trim()
+        result["commitMessage"] = gitMsg
+        
+        // 获取branch名称
+        val branchProcess = ProcessBuilder("git", "rev-parse", "--abbrev-ref", "HEAD").start()
+        val gitBranch = branchProcess.inputStream.bufferedReader().use { it.readText() }.trim()
+        result["branch"] = gitBranch
+    } catch (e: Exception) {
+        // 获取失败时提供默认值
+        result["commitHash"] = "unknown"
+        result["commitDate"] = "unknown"
+        result["commitMessage"] = "unknown"
+        result["branch"] = "unknown"
+    }
+    
+    return result
+}
+
 android {
     namespace = "com.example.jerrycan"
     compileSdk = 35
@@ -18,6 +53,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        // 添加Git commit信息到BuildConfig中
+        val gitInfo = getGitCommitInfo()
+        buildConfigField("String", "GIT_COMMIT_HASH", "\"${gitInfo["commitHash"]}\"")
+        buildConfigField("String", "GIT_COMMIT_DATE", "\"${gitInfo["commitDate"]}\"")
+        buildConfigField("String", "GIT_COMMIT_MESSAGE", "\"${gitInfo["commitMessage"]}\"")
+        buildConfigField("String", "GIT_BRANCH", "\"${gitInfo["branch"]}\"")
     }
 
     buildTypes {
@@ -38,6 +80,8 @@ android {
     }
     buildFeatures {
         compose = true
+        // 启用BuildConfig生成
+        buildConfig = true
     }
 }
 
